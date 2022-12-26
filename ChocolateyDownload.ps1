@@ -4,13 +4,20 @@ if (-not (test-path "C:\ProgramData\chocolatey\bin\choco.exe")){
 }
 
 $packages = @(
-"notepadplusplus",
-"vscode",
-"ccleaner",
-"greenshot",
-"7zip"
+    #("Package name", "Optional parameters"),
+    ("notepadplusplus", ""),
+    ("vscode", ""),
+    ("Firefox", "/NoTaskbarShortcut /NoDesktopShortcut /NoAutoUpdate"),
+    ("ccleaner", ""),
+    ("greenshot", ""),
+    ("7zip", ""),
+    ("adobereader", "'/UpdateMode:4'" )
 )
 
-foreach ($software in $packages){
-    choco install $software
+foreach ($item in $packages){
+    if ($item[1] -ne ("")) {
+       choco install $item[0] --params $item[1]
+    } else {
+       choco install $item
+    }
 }
