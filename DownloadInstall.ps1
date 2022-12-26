@@ -1,3 +1,9 @@
+if (Get-ExecutionPolicy | Where-Object ($_.Status -ne "Unrestricted")) {
+    write-output "Executionpolicy is not Unrestricted"
+} else {
+    Write-Output "ExecutionPolicy is set to unrestricted"
+}
+
 #Remove progress bar to increase download speed
 $ProgressPreference = 'SilentlyContinue'
 $SoftwareFolder = "C:\temp\software"
