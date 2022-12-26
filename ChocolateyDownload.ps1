@@ -11,7 +11,28 @@ $packages = @(
     ("ccleaner", ""),
     ("greenshot", ""),
     ("7zip", ""),
-    ("adobereader", "'/UpdateMode:4'" )
+    ("adobereader", "'/UpdateMode:4'" ),
+    ("vcredist140", ""),
+    ("vlc", ""),
+    ("teamviewer", ""),
+    ("sysinternals", ""),
+    ("autohotkey.portable", ""),
+    ("putty.install", ""),
+    ("treesizefree", ""),
+    ("curl", ""),
+    ("winscp.install", ""),
+    ("keepass.install", ""),
+    ("openssl.light", ""),
+    ("wireshark", ""),
+    ("everything", ""),
+    ("postman", ""),
+    ("youtube-dl", ""),
+    ("psexec", ""),
+    ("choco install desktopinfo", ""),
+    ("discord.install", ""),
+    ("nmap", ""),
+    ("steam", ""),
+    ("speccy", "")
 )
 
 foreach ($item in $packages){
