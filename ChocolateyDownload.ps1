@@ -31,8 +31,7 @@ $packages = @(
     ("choco install desktopinfo", ""),
     ("discord.install", ""),
     ("nmap", ""),
-    ("steam", ""),
-    ("speccy", "")
+    ("steam", "")
 )
 
 foreach ($item in $packages){
