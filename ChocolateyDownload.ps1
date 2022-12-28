@@ -5,6 +5,7 @@ if (-not (test-path "C:\ProgramData\chocolatey\bin\choco.exe")){
     clear
 }
 
+$LogFile = "C:\ChocolateyInstall.log"
 $startTime = Get-Date
 
 $packages = @(
@@ -42,15 +43,23 @@ $NumberOfPackages = $packages.length
 
 foreach ($item in $packages){
     if ($item[1] -ne ("")) {
-       $PackageNumber = $packages.IndexOf($item)+1
-       Write-Output "Installing $PackageNumber/$NumberOfPackages - $item[0]"
-       choco install $item[0] --params $item[1]
-       clear
+        $InstallStartTime = Get-Date
+        $PackageNumber = $packages.IndexOf($item)+1
+        Write-Output "Installing $PackageNumber/$NumberOfPackages - $item[0]"
+        choco install $item[0] --params $item[1]
+        $InstallEndTime = Get-Date
+        $InstalltimeDiff = $InstallendTime - $installstartTime
+        "$($InstalltimeDiff.ToString("mm\:ss")) - $item[0]" | Out-File -FilePath $LogFile -Append
+        clear
     } else {
-       $PackageNumber = $packages.IndexOf($item)+1
-       Write-Output "Installing $PackageNumber/$NumberOfPackages - $item"
-       choco install $item
-       clear
+        $InstallStartTime = Get-Date
+        $PackageNumber = $packages.IndexOf($item)+1
+        Write-Output "Installing $PackageNumber/$NumberOfPackages - $item"
+        choco install $item
+        $InstallEndTime = Get-Date
+        $InstalltimeDiff = $InstallendTime - $installstartTime
+        "$($InstalltimeDiff.ToString("mm\:ss")) - $item" | Out-File -FilePath $LogFile -Append
+        clear
     }
 }
 
