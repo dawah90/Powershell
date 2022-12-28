@@ -34,10 +34,17 @@ $packages = @(
     ("steam", "")
 )
 
+
+$NumberOfPackages = $packages.length
+
 foreach ($item in $packages){
     if ($item[1] -ne ("")) {
+       $PackageNumber = $packages.IndexOf($item)+1
+       Write-Output "Installing $PackageNumber/$NumberOfPackages"
        choco install $item[0] --params $item[1]
     } else {
+       $PackageNumber = $packages.IndexOf($item)+1
+       Write-Output "Installing $PackageNumber/$NumberOfPackages"
        choco install $item
     }
 }
