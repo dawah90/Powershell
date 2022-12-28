@@ -2,7 +2,6 @@ if (-not (test-path "C:\ProgramData\chocolatey\bin\choco.exe")){
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     choco feature enable -n allowGlobalConfirmation
     choco feature disable -n showdownloadprogress
-    $ChocolateyVerbosePreference = "SilentlyContinue"
 }
 
 $startTime = Get-Date
@@ -44,12 +43,12 @@ foreach ($item in $packages){
     if ($item[1] -ne ("")) {
        $PackageNumber = $packages.IndexOf($item)+1
        Write-Output "Installing $PackageNumber/$NumberOfPackages - $item[0]"
-       choco install $item[0] --params $item[1] -Verbose:$false
+       choco install $item[0] --params $item[1]
        clear
     } else {
        $PackageNumber = $packages.IndexOf($item)+1
        Write-Output "Installing $PackageNumber/$NumberOfPackages - $item"
-       choco install $item -Verbose:$false
+       choco install $item
        clear
     }
 }
