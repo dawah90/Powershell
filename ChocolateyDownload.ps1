@@ -2,6 +2,7 @@ if (-not (test-path "C:\ProgramData\chocolatey\bin\choco.exe")){
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     choco feature enable -n allowGlobalConfirmation
     choco feature disable -n showdownloadprogress
+    $ChocolateyVerbosePreference = "SilentlyContinue"
 }
 
 $startTime = Get-Date
@@ -42,17 +43,19 @@ $NumberOfPackages = $packages.length
 foreach ($item in $packages){
     if ($item[1] -ne ("")) {
        $PackageNumber = $packages.IndexOf($item)+1
-       Write-Output "Installing $PackageNumber/$NumberOfPackages"
-       choco install $item[0] --params $item[1]
+       Write-Output "Installing $PackageNumber/$NumberOfPackages - $item[0]"
+       choco install $item[0] --params $item[1] -Verbose:$false
+       clear
     } else {
        $PackageNumber = $packages.IndexOf($item)+1
-       Write-Output "Installing $PackageNumber/$NumberOfPackages"
-       choco install $item
+       Write-Output "Installing $PackageNumber/$NumberOfPackages - $item"
+       choco install $item -Verbose:$false
+       clear
     }
 }
 
 $endTime = Get-Date
 $timeDiff = $endTime - $startTime
+$timeInMinutes = $timeDiff.ToString("mm\:ss")
 
-#Time it took to run script
-$timeDiff.ToString("mm\:ss")
+Write-Output "Completion time: $timeInMinutes"
