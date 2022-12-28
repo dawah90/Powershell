@@ -27,6 +27,7 @@ $packages = @(
     ("curl", ""),
     ("winscp.install", ""),
     ("keepass.install", ""),
+    ("googledrive", ""),
     ("openssl.light", ""),
     ("wireshark", ""),
     ("everything", ""),
