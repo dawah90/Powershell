@@ -34,7 +34,7 @@ $packages = @(
     ("postman", ""),
     ("youtube-dl", ""),
     ("psexec", ""),
-    ("choco install desktopinfo", ""),
+    ("desktopinfo", ""),
     ("discord.install", ""),
     ("nmap", ""),
     ("steam", "")
