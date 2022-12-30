@@ -1,6 +1,8 @@
-if (-not (Test-Path -path "C:\Temp")) {
-    New-Item "C:\Temp" -ItemType Directory
+$LogLocation = "C:\Temp"
+
+if (-not (Test-Path -path $LogLocation)) {
+    New-Item $LogLocation -ItemType Directory
 }
 
 $DateNow = Get-Date -UFormat "%Y-%m-%d-%H-%M-%S"
-Start-Transcript -Path "C:\Temp\Powershell-$DateNow.log"
+Start-Transcript -Path "$logLocation\Powershell-$DateNow.log"
