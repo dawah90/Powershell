@@ -2,7 +2,7 @@ if (-not (test-path "C:\ProgramData\chocolatey\bin\choco.exe")){
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
     choco feature enable -n allowGlobalConfirmation
     choco feature disable -n showdownloadprogress
-    clear
+    Clear-Host
 }
 
 $LogFile = "C:\ChocolateyInstall.log"
@@ -51,7 +51,7 @@ foreach ($item in $packages){
         $InstallEndTime = Get-Date
         $InstalltimeDiff = $InstallendTime - $installstartTime
         "$($InstalltimeDiff.ToString("mm\:ss")) - $item[0]" | Out-File -FilePath $LogFile -Append
-        clear
+        Clear-Host
     } else {
         $InstallStartTime = Get-Date
         $PackageNumber = $packages.IndexOf($item)+1
@@ -60,7 +60,7 @@ foreach ($item in $packages){
         $InstallEndTime = Get-Date
         $InstalltimeDiff = $InstallendTime - $installstartTime
         "$($InstalltimeDiff.ToString("mm\:ss")) - $item" | Out-File -FilePath $LogFile -Append
-        clear
+        Clear-Host
     }
 }
 
