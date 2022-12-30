@@ -36,7 +36,6 @@ foreach ($row in $software)
 
 foreach ($row in $software)
 {
-    $installString = "{0} {1}" -f $row[2], $row[3]
     $installing = "Installing"
     $installtext = "{0} {1}" -f $installing, $row[0]
     Write-Output $installtext
