@@ -37,7 +37,8 @@ $packages = @(
     ("desktopinfo", ""),
     ("discord.install", ""),
     ("nmap", ""),
-    ("steam", "")
+    ("steam", ""),
+    ("github-desktop", "")
 )
 
 $NumberOfPackages = $packages.length
