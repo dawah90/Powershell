@@ -1,6 +1,3 @@
-$DateNow = Get-Date -Format "HH-mm"
-Start-Transcript -Path C:\Temp\2022-12-22-$DateNow.txt
-
 if (Get-PackageProvider | Where-Object { $_.Name -eq "nuget" }) {
     Write-Output "Nuget already installed" }
     else {
