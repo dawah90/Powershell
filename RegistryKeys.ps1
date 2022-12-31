@@ -54,7 +54,11 @@ $KeyProperties = @(
 
 # Loop through Array. Create the property if missing or modify the property if already existing
 ForEach ($Property in $KeyProperties) {
-    if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)){ Set-ItemProperty -Path $RegKey -Name $Property[0] -Value $Property[1] } else { New-ItemProperty -Path $RegKey -Name $Property[0] -Value $Property[1] -PropertyType $Property[2] }
+    if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)) { 
+        Set-ItemProperty -Path $RegKey -Name $Property[0] -Value $Property[1] } 
+    else { 
+        New-ItemProperty -Path $RegKey -Name $Property[0] -Value $Property[1] -PropertyType $Property[2] 
+    }
 }
 
 <#-----
@@ -64,9 +68,11 @@ Removal
 #Remove specific property
 Remove-ItemProperty -Path $RegKey -Name "MyString"
 
-#Remove all properties using for loop
+#Remove all properties using ForEach
 ForEach ($Property in $KeyProperties) {
-    if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)) { Remove-ItemProperty -Path $RegKey -Name $Property[0] } 
+    if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)) { 
+        Remove-ItemProperty -Path $RegKey -Name $Property[0] 
+    } 
 }
 
 #Remove key with underlying properties
