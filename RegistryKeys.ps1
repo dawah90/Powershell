@@ -40,9 +40,8 @@ Add a key with properties as an array using a for loop.
 ------------------------------------------------------
 #>
 
+# Specify registry key path
 $RegKey = "HKLM:\SOFTWARE\MyKey"
-if (-not (Test-Path -Path $RegKey)) { New-Item -Path $RegKey -ItemType Key }
-
 # PropertyName, PropertyValue, PropertyType
 $KeyProperties = @(
     ("MyString","Hello, World!", "String"),
@@ -52,6 +51,8 @@ $KeyProperties = @(
     ("MyBinary",[Byte[]](0x01, 0x02, 0x03, 0x04, 0x05),"Binary")
 )
 
+# Create Registry Key if it doesn't exist
+if (-not (Test-Path -Path $RegKey)) { New-Item -Path $RegKey -ItemType Key }
 # Loop through Array. Create the property if missing or modify the property if already existing
 ForEach ($Property in $KeyProperties) {
     if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)) { 
