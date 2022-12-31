@@ -36,11 +36,12 @@ Binary: This data type represents a sequence of bytes. It can be used to store r
 
 
 ------------------------------------------------------
-Add a key with properties as an array using a for loop
+Add a key with properties as an array using a for loop.
 ------------------------------------------------------
 #>
 
 $RegKey = "HKLM:\SOFTWARE\MyKey"
+if (-not (Test-Path -Path $RegKey)) { New-Item -Path $RegKey -ItemType Key }
 
 # PropertyName, PropertyValue, PropertyType
 $KeyProperties = @(
@@ -51,14 +52,22 @@ $KeyProperties = @(
     ("MyBinary",[Byte[]](0x01, 0x02, 0x03, 0x04, 0x05),"Binary")
 )
 
-# Loop through Array
+# Loop through Array. Create the property if missing or modify the property if already existing
 ForEach ($Property in $KeyProperties) {
     if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)){ Set-ItemProperty -Path $RegKey -Name $Property[0] -Value $Property[1] } else { New-ItemProperty -Path $RegKey -Name $Property[0] -Value $Property[1] -PropertyType $Property[2] }
 }
 
+<#-----
+Removal
+-------#>
 
-<#-----------------------
-Remove key and properties
--------------------------#>
+#Remove specific property
+Remove-ItemProperty -Path $RegKey -Name "MyString"
 
+#Remove all properties using for loop
+ForEach ($Property in $KeyProperties) {
+    if ($(Get-ItemProperty -Path $Regkey -Name $Property[0] -ErrorAction SilentlyContinue)) { Remove-ItemProperty -Path $RegKey -Name $Property[0] } 
+}
+
+#Remove key with underlying properties
 Remove-Item -Path $RegKey -Recurse
