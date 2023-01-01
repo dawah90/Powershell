@@ -14,6 +14,7 @@ foreach ($CimClass in $Win32CimClassesName) {
     Write-Host " "
 }
 
+Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -Property * | Format-List
 Get-CimInstance -ClassName "Win32_Processor" | Format-List
 Get-CimInstance -ClassName "Win32_Printer" | Format-List -Property Name, PrinterState, PrinterStatus
 Get-CimInstance -ClassName "Win32_BIOS" | Select-Object -Property *
