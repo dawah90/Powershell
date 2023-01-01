@@ -16,7 +16,7 @@ foreach ($CimClass in $Win32CimClassesName) {
 
 Get-CimInstance -ClassName "Win32_Processor" | Format-List
 Get-CimInstance -ClassName "Win32_Printer" | Format-List -Property Name, PrinterState, PrinterStatus
-Get-CimInstance -ClassName "Win32_BIOS"
+Get-CimInstance -ClassName "Win32_BIOS" | Select-Object -Property *
 Get-CimInstance -ClassName "Win32_PrinterDriver" | Format-list -Property Name, Configfile, DataFile, DependentFiles, DriverPath
 Get-CimInstance -ClassName "Win32_Printjob" | Format-List
 Get-CimInstance -ClassName "Win32_Account" | Where-Object {$_.Name -like "adm*"} | Select-Object Name, AccountType, SID
