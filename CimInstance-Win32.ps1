@@ -50,5 +50,9 @@ Get-CimInstance -ClassName "Win32_Product" | Sort-Object Name | Format-Table Nam
 Get-CimInstance -ClassName "Win32_ComputerSystemProduct"
 Get-CimInstance -ClassName "Win32_PerfRawData_WorkUnitCounterProvider_WorkUnit" | Format-Table -Property Name, AppOwnerProcessID, HostProcessID
 
-
+Get-CimInstance -ClassName "Win32_PhysicalMemory"
+Get-CimInstance -ClassName "Win32_Processor"
+Get-CimInstance -ClassName "Win32_LogicalDisk"
+Get-CimInstance -ClassName "Win32_DiskDrive"
+Get-CimInstance -ClassName "Win32_OperatingSystem"
 
