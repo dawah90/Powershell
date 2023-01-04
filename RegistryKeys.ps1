@@ -79,6 +79,31 @@ ForEach ($Property in $KeyProperties) {
 #Remove key with underlying properties
 Remove-Item -Path $RegKey -Recurse
 
-<#-------------------------------
-Add or remove a specific property
---------------------------------#>
+<#----------------------
+Add a specific property
+-----------------------#>
+
+# Specify registry key path
+$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
+$RegKeyName = "PreventIndexingOutlook"
+$Value = 1
+$PropertyType = "DWORD"
+
+# Create Registry Key if it doesn't exist
+if (-not (Test-Path -Path $RegKey)) { New-Item -Path $RegKey -ItemType Key }
+
+if ($(Get-ItemProperty -Path $Regkey -Name $RegKeyName -ErrorAction SilentlyContinue)) { 
+    Set-ItemProperty -Path $RegKey -Name $RegKeyName -Value $Value } 
+    else { 
+        New-ItemProperty -Path $RegKey -Name $RegKeyName -Value $Value -PropertyType $PropertyType 
+    }
+
+<#------------------------
+Remove a specific property
+-------------------------#>
+
+$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
+$RegKeyName = "PreventIndexingOutlook"
+if ($(Get-ItemProperty -Path $Regkey -Name $RegKeyName -ErrorAction SilentlyContinue)) { 
+    Remove-ItemProperty -Path $RegKey -Name $RegKeyName 
+} 
