@@ -78,3 +78,7 @@ ForEach ($Property in $KeyProperties) {
 
 #Remove key with underlying properties
 Remove-Item -Path $RegKey -Recurse
+
+<#-------------------------------
+Add or remove a specific property
+--------------------------------#>
