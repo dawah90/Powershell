@@ -7,11 +7,12 @@ if (-not (test-path "C:\ProgramData\chocolatey\bin\choco.exe")){
 
 $startTime = Get-Date
 
-#choco install Firefox --params "/NoTaskbarShortcut /NoDesktopShortcut 
-choco install Firefox --params "/NoTaskbarShortcut /NoDesktopShortcut
+#Packages can be found here: https://community.chocolatey.org/packages
+
+#Example: choco install Firefox --params "/NoTaskbarShortcut /NoDesktopShortcut"
+choco install Firefox --params "/NoTaskbarShortcut /NoDesktopShortcut"
 
 $endTime = Get-Date
 $timeDiff = $endTime - $startTime
 $timeInMinutes = $timeDiff.ToString("mm\:ss")
-
 Write-Output "Completion time: $timeInMinutes"
