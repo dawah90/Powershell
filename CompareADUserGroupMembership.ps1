@@ -1,5 +1,4 @@
-﻿#Compare 2 AD-users group membership
-
+﻿# Compare 2 AD-users group membership
 $User1 = Read-Host "Enter user 1"
 $User2 = Read-Host "Enter user 2"
 
@@ -15,6 +14,7 @@ $common = $list1Names | Where-Object {$list2Names -contains $_}
 $unique1 = $list1Names | Where-Object {$list2Names -notcontains $_}
 $unique2 = $list2Names | Where-Object {$list1Names -notcontains $_}
 
+# Output results
 Write-Output " "
 Write-Host "Common for both users" -ForegroundColor Cyan
 Write-Output $common
