@@ -221,3 +221,5 @@ End
 	}#End End
 	
 }#End Function
+
+Get-PendingReboot
