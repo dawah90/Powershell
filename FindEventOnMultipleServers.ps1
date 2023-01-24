@@ -19,3 +19,5 @@ Foreach ($FoundEvent in $FoundEvents) {
     Write-Output $FoundEvent.TimeCreated.ToString("yyyy-MM-dd - HH:mm")
     Write-Output $FoundEvent.MachineName
 }
+
+#Substring source: https://ss64.com/ps/substring.html
