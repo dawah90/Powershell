@@ -89,22 +89,22 @@ $authZ = Get-ACMEAuthorization -State $state -Order $order;
 
 # Select a challenge to fullfill for each domain
 foreach ($authDomain in $authZ ) {
-$challenge = Get-ACMEChallenge $state $authDomain "http-01";
+    $challenge = Get-ACMEChallenge $state $authDomain "http-01";
 
-# Inspect the challenge data
-$challenge.Data;
+    # Inspect the challenge data
+    $challenge.Data;
 
-# Create the file requested by the challenge
-$fileName = $env:TMP + '\' + $challenge.Token;
-Set-Content -Path $fileName -Value $challenge.Data.Content -NoNewline;
+    # Create the file requested by the challenge
+    $fileName = $env:TMP + '\' + $challenge.Token;
+    Set-Content -Path $fileName -Value $challenge.Data.Content -NoNewline;
 
-$blobName = "$storageBlobFolderName/.well-known/acme-challenge/" + $challenge.Token
-$storageAccount = Get-AzStorageAccount -ResourceGroupName $STResourceGroupName -Name $storageName
-$ctx = $storageAccount.Context
-Set-AzStorageBlobContent -File $fileName -Container "acme-challenges" -Context $ctx -Blob $blobName
+    $blobName = "$storageBlobFolderName/.well-known/acme-challenge/" + $challenge.Token
+    $storageAccount = Get-AzStorageAccount -ResourceGroupName $STResourceGroupName -Name $storageName
+    $ctx = $storageAccount.Context
+    Set-AzStorageBlobContent -File $fileName -Container "acme-challenges" -Context $ctx -Blob $blobName
 
-# Signal the ACME server that the challenge is ready
-$challenge | Complete-ACMEChallenge $state;
+    # Signal the ACME server that the challenge is ready
+    $challenge | Complete-ACMEChallenge $state;
 }
 
 # Wait a little bit and update the order, until we see the states
