@@ -28,6 +28,7 @@ Where-Object {$_.AddressFamily -eq "IPv4" -and $_.ValidLifeTime -lt "1"}
 
 $correctadapterindex = $correctadapter.InterfaceIndex
 
+<#
 Set-NetIPInterface -InterfaceIndex $correctadapterindex -DHCP Disabled -PassThru
 
 New-NetIPAddress `
@@ -40,6 +41,7 @@ New-NetIPAddress `
  Set-DnsClientServerAddress `
  -InterfaceIndex $correctadapterindex `
  -ServerAddresses 8.8.8.8,8.8.4.4
+#>
 
 $adaptername = $adapter.Name
 $adapterindex = $adapter.ifindex
