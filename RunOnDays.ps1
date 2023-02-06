@@ -6,3 +6,5 @@ if($datetime.DayOfWeek -match 'Monday|Wednesday|Friday'){
 }else{
     Write-Output "its sunday"
 }
+
+$datetime | Get-Member
