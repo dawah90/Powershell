@@ -27,6 +27,7 @@ $correctadapter = Get-NetIPAddress -InterfaceIndex $adapter.ifIndex | `
 Where-Object {$_.AddressFamily -eq "IPv4" -and $_.ValidLifeTime -lt "1"}
 
 $correctadapterindex = $correctadapter.InterfaceIndex
+Write-Output $correctadapterindex
 
 <#
 Set-NetIPInterface -InterfaceIndex $correctadapterindex -DHCP Disabled -PassThru
