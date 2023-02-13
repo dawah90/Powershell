@@ -66,7 +66,6 @@ Get-Process | Select-Object -first 1 | format-list -property *
  @{label="Handles"; Expression={$_.HandleCount}; Align="Center"}, `
  @{label="Application Path"; Expression={$_.Path} `
 }
- 
 
 $RDPRules = Get-NetFirewallRule | Where-Object {$_.DisplayName -match "Remote Desktop" }
 $FPRules = Get-NetFirewallRule | Where-Object {$_.DisplayName -match "File and Printer Sharing" }
@@ -97,6 +96,3 @@ ForEach ($rule in $Rules) {
 #172.16.0.0      -   172.31.255.255
 #192.168.0.0/16 
 #192.168.0.0     -   192.168.255.255
-
-
-
