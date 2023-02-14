@@ -8,3 +8,4 @@ if($datetime.DayOfWeek -match 'Monday|Wednesday|Friday'){
 }
 
 $datetime | Get-Member
+
