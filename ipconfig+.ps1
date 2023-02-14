@@ -2,7 +2,7 @@ function ipconfig+ {
     $ipconfigOutput = & 'ipconfig' '/all'
     $i = 0
     foreach ($row in $ipconfigOutput) {
-        #$i represents the upcoming row used by DNS
+        #$i represents the upcoming row. Used by DNS since it's written on 2 rows.
         $i++
         if ($row -match "Physical Address|DHCP Server|Description|IPv4 Address|Subnet Mask|Default Gateway|DNS Servers") {
             if ($row -match "Physical Address|Description") {
