@@ -98,12 +98,23 @@ ForEach ($rule in $Rules) {
 #192.168.0.0     -   192.168.255.255
 
 # Get Network Adapter and change DNS
+#Clear
+$ServerName = "####"
+
+Invoke-Command -ComputerName $ServerName -ScriptBlock {
 $adapter = Get-NetAdapter | Where-Object Status -eq "Up"
 $correctadapter = Get-NetIPAddress -InterfaceIndex $adapter.ifIndex | Where-Object {$_.AddressFamily -eq "IPv4" -and { $_.ValidLifeTime -lt "1" -or $_.ValidLifeTime -eq "Infinite ([TimeSpan]::MaxValue)" } }
 $correctadapterindex = $correctadapter.InterfaceIndex
-Write-Output $correctadapterindex
-Write-Output $correctadapter.IPv4Address
+$ipaddress = $correctadapter.IPv4Address
+Write-host "Index number for network adapter $correctadapterindex" -ForegroundColor Yellow
+Write-host "IP Address for network adapter $ipaddress" -ForegroundColor Yellow
 
-Get-DnsClientServerAddress -InterfaceIndex $correctadapterindex
-Set-DnsClientServerAddress -InterfaceIndex $correctadapterindex -ServerAddresses 172.22.2.61,172.21.8.61 -WhatIf
-Get-DnsClientServerAddress -InterfaceIndex $correctadapterindex
+$DNSsettings = Get-DnsClientServerAddress -InterfaceIndex $correctadapterindex
+$CurrentDNS = $DNSsettings.Serveraddresses
+Write-host "Current DNS servers: $CurrentDNS" -ForegroundColor Yellow
+Write-host ""
+Set-DnsClientServerAddress -InterfaceIndex $correctadapterindex -ServerAddresses #.#.#.#,#.#.#.# -WhatIf
+$DNSsettings = Get-DnsClientServerAddress -InterfaceIndex $correctadapterindex
+$CurrentDNS = $DNSsettings.Serveraddresses
+Write-host "$env:COMPUTERNAME - DNS servers: $CurrentDNS" -ForegroundColor Cyan
+}
