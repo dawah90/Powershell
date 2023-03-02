@@ -96,3 +96,14 @@ ForEach ($rule in $Rules) {
 #172.16.0.0      -   172.31.255.255
 #192.168.0.0/16 
 #192.168.0.0     -   192.168.255.255
+
+# Get Network Adapter and change DNS
+$adapter = Get-NetAdapter | Where-Object Status -eq "Up"
+$correctadapter = Get-NetIPAddress -InterfaceIndex $adapter.ifIndex | Where-Object {$_.AddressFamily -eq "IPv4" -and { $_.ValidLifeTime -lt "1" -or $_.ValidLifeTime -eq "Infinite ([TimeSpan]::MaxValue)" } }
+$correctadapterindex = $correctadapter.InterfaceIndex
+Write-Output $correctadapterindex
+Write-Output $correctadapter.IPv4Address
+
+Get-DnsClientServerAddress -InterfaceIndex $correctadapterindex
+Set-DnsClientServerAddress -InterfaceIndex $correctadapterindex -ServerAddresses 172.22.2.61,172.21.8.61 -WhatIf
+Get-DnsClientServerAddress -InterfaceIndex $correctadapterindex
