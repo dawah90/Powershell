@@ -15,3 +15,13 @@ $hash = [ordered]@{
     'djur' = 'apa'
     'dator' = $env:COMPUTERNAME
 }
+$obj = New-Object -TypeName PSObject -Property $hash
+
+#UsableHash
+$hash = [pscustomobject]@{
+    'person' = 'x'
+    'datum' = get-date
+    'tid' = 'nu'
+    'djur' = 'apa'
+    'dator' = $env:COMPUTERNAME
+}
