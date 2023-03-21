@@ -3,6 +3,8 @@ https://renenyffenegger.ch/notes/Windows/PowerShell/language/variable/preference
 $stopProcMeta = new-object System.Management.Automation.CommandMetadata(get-command stop-process)
 $stopProcMeta.ConfirmImpact
 
+#####
+
 $Commands = Get-Command | Select-Object -first 50
 $ImpactHash = @{}
 $ErrorLog = "C:\temp\ConfirmImpactError.log"  
