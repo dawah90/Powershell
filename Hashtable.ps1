@@ -3,7 +3,7 @@ $hash = @{
     'person' = 'x'
     'datum' = get-date
     'tid' = 'nu'
-    'djur = 'apa'
+    'djur' = 'apa'
     'dator' = $env:COMPUTERNAME
 }
 
@@ -12,6 +12,6 @@ $hash = [ordered]@{
     'person' = 'x'
     'datum' = get-date
     'tid' = 'nu'
-    'djur = 'apa'
+    'djur' = 'apa'
     'dator' = $env:COMPUTERNAME
 }
