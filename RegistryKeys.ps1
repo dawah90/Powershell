@@ -5,6 +5,8 @@ HKEY Explained
 
 The HKEY_CLASSES_ROOT hive in the Windows registry contains information about file associations and COM object classes. 
 It's used to associate file types with specific programs and to register COM objects.
+
+New-PSDrive -PSProvider registry -Root HKEY_CLASSES_ROOT -Name HKCR -WhatIf
 Get-ChildItem -Path "HKCR:\"
 
 The HKEY_CURRENT_USER hive in the Windows registry contains configuration settings that are specific to the currently logged-in user. 
