@@ -26,6 +26,8 @@ $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -ExecutionTime
 
 # Combine action, trigger and settings into a full task and register it:
 $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings 
+
+# Add -TaskPath "Subfolder\Subfolder2\Subfolder3" to add the task to a folder under "Task Scheduler Library"
 $Task | Register-ScheduledTask -TaskName $TaskName 
 
 # "Repetition.duration" and "Repetition.interval" are not available until first registration so that's why the step Get-ScheduledTask is added.
