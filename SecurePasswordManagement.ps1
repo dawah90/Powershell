@@ -25,9 +25,9 @@ $MyCredentials = New-Object -TypeName System.Management.Automation.PSCredential 
 
 # Prepare custom encryption key:
 $keyfile = "C:\temp\aes_password_encryption.key"
-$key = New-Object Byte[] 32
-[Security.Cryptography.RNGCryptoServiceProvider]::Create().getbytes($key)
-$key | Out-File $keyfile
+$encryption = New-Object Byte[] 32
+[Security.Cryptography.RNGCryptoServiceProvider]::Create().getbytes($encryption)
+$encryption | Out-File $keyfile
 
 # Step 1: Provide password and obfuscate it using custom key:
 $keyfile = "C:\temp\aes_password_encryption.key"
