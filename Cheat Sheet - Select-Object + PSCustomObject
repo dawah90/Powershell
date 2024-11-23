@@ -1,0 +1,33 @@
+#1 Select-Object using custom expressions
+
+$BIOSInfo = Get-WmiObject -Class Win32_Bios
+$BIOSInfo | Select-Object `
+    @{Name="First Value"; Expression={$_.PSComputerName} }, `
+    @{Name="Second Value"; Expression={$_.CurrentLanguage} }, `
+    @{Name="Third Value"; Expression={$_.BIOSVersion[0]} }, `
+    @{Name="Fourth Value"; Expression={$_.BIOSVersion[1]} }, `
+    @{Name="Fifth Value"; Expression={$_.ListOfLanguages[0]} }, `
+    @{Name="Last Value"; Expression={$_.ListOfLanguages[1]} }
+
+#2 Using [pscustomobject]
+
+$FoundFiles = @()
+$Files = Get-ChildItem -Path "C:\temp" | Where-Object { ($_.PSIScontainer -eq  $False) }
+$LogPath = "C:\Temp\logfiles"
+
+if (-not (Test-Path $LogPath) ) { New-Item -ItemType Directory -Path "$LogPath" -Force -Verbose }
+
+foreach ($File in $Files) {
+    $FileInfo = [PSCustomObject]@{
+        "Filnamn" = $File.Name
+        "Filens sökväg" = $File.DirectoryName
+        "Skapades av" = (Get-Acl -Path $File.FullName).Owner
+        "Dagar sedan skapad" = (New-TimeSpan -Start $File.CreationTime -End (Get-Date)).Days
+        "Dagar sedan skriven till"  = (New-TimeSpan -Start $File.LastWriteTime -End (Get-Date)).Days
+    }
+
+    $FoundFiles += $FileInfo
+}
+
+$FoundFiles | Sort-Object "Days Since Created" -Descending | Out-GridView
+$FoundFiles | Export-Csv "$LogPath\filer.csv" -Encoding utf8 -Append -Force -NoTypeInformation
